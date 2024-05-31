@@ -21,6 +21,10 @@ matplotlib==3.7.2
 
 sympy==1.12
 
+statsmodels==0.14.0
+
 We run all the experiments on Ubuntu 20.04 with an i9-13900K(CPU) and a Rtx 4090(GPU).
 
-If you get an error, it is likely that the numpy version is too high, so please use the provided version.
+If you get an error about numpy, it is likely that the numpy version is too high, so please use the provided version.
+
+If you cannot run correctly with multiprocessing on Windows using jupyter notebook, please copy the code to a .py file and run the python file.  
