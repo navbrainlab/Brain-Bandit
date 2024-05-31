@@ -1,11 +1,11 @@
 # @author : Chen
 # @Start date : 2022/11/22
 import sys
-sys.path.append("/home/ubuntu/PycharmProjects/Brain-inspired-Exploration_new(5.4)/Brain-inspired-Exploration")
+sys.path.append("..")
 import numpy as np
 import pandas as pd
-from Model_analysis.Lyapunov_Worm import Lyapunov_Worm_multi_D
-
+from model.Lyapunov_Worm import Lyapunov_Worm_multi_D
+from model.Lyapunov_Worm_deconstruction import Lyapunov_Worm_Deconstruction
 from tqdm import tqdm
 
 class Bandit:
@@ -37,7 +37,7 @@ class Game:
 
 
 class Play:
-    def __init__(self, varargin, force_times, bandit_std_list, prior = None, init = True, bandit_mean=0,mean_std=1, dim:int = 2, subject: int = 1, block: int = 10, trial: int = 10, save: bool = True, save_path: str = 'result',
+    def __init__(self, varargin, force_times, bandit_std_list, net= None, prior = None, init = True, bandit_mean=0,mean_std=1, dim:int = 2, subject: int = 1, block: int = 10, trial: int = 10, save: bool = True, save_path: str = 'result',
                  save_mode: str = 'w'):
         '''
 
@@ -48,22 +48,7 @@ class Play:
         :param save_path: save path
         :param save_mode: 'a' for 'add' , 'w' for rewrite
         :param  varargin
-                {
-            'step_num': 400,  # how many steps to run the brain circuit before executing the next movement
 
-            # FROM NI'S MODEL
-            'tau': np.ones(dim),  # decay time constant
-            'weights_in': np.ones(dim) * 1.,  # input weights
-            # self.weights_in = np.ones(2) * 2
-
-            'rs': np.ones(dim) * .5,  #
-            'w': np.ones(dim) * 4.,  # weight of mutual inhibition
-            'k': 7 * np.ones(2),  # sigmoid center
-            'n': 1. * np.ones(2),  # sigmoid slope
-            'bi': np.ones(2) * 5.5,  # baseline production
-            'dt': 0.5,  # size of timesteps
-            'nsf': 0.8,  # noise level}
-        }
 
         '''
 
@@ -81,10 +66,13 @@ class Play:
         self.bandit_std_list = bandit_std_list
         self.prior = prior
         self.init = init
+        self.net = net
 
     def one_game(self, dim: int, game: Game, block_index: int):
-
-        net = Lyapunov_Worm_multi_D(varargin=self.varargin, dim=self.dim)
+        if self.net is None:
+            net = Lyapunov_Worm_multi_D(varargin=self.varargin, dim=self.dim)
+        elif self.net == 'deconstruction':
+            net = Lyapunov_Worm_Deconstruction(varargin=self.varargin, dim=self.dim)
         result_list = []
         mu = game.mean_list
         std = game.std

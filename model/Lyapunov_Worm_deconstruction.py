@@ -47,24 +47,17 @@ class Lyapunov_Worm_Deconstruction:
         neuron_std = np.zeros(self.dim)
         for _ in range(self.step):
             sensory_in = self.history_sample(history,offset)
-
             neural_input = sensory_in * self.weights_in
-
-
             neuron_sample = neural_input
             d_neuron_average = -neuron_average + neuron_sample
             neuron_average += d_neuron_average * self.tau_delay
             d_neuron_std = -neuron_std + neuron_sample - neuron_average
             neuron_std += d_neuron_std
-            neural_input_mean = self.w_avg_comp*neuron_average
-            neural_input_std = self.w_std_comp*neuron_std
-            noise = np.sqrt(self.nsf**2+neural_input_std**2 )* np.random.normal(0, 1, self.dim)
+            noise = self.nsf * np.random.normal(0, 1, self.dim)
             neural_input = self.w_avg_comp*neuron_average + self.w_std_comp*neuron_std
             self.neural_inputs.append(neural_input.tolist().copy())
-            # print(neural_input)
-            # print(type(neural_input))
             dxs, nxs = self.bmfun(neural_inputs_mean=neural_input, neural_state=neuro_state)
-            neuro_state += dxs * self.dt + noise*np.sqrt(self.dt)
+            neuro_state += (dxs+noise) * self.dt
             neuro_state[neuro_state < 0] = 0.
             if save_history:
                 self.neuron_comp_history.append(neuro_state.copy())
