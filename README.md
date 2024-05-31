@@ -22,3 +22,5 @@ matplotlib==3.7.2
 sympy==1.12
 
 We run all the experiments on Ubuntu 20.04 with an i9-13900K(CPU) and a Rtx 4090(GPU).
+
+If you get an error, it is likely that the numpy version is too high, so please use the provided version.
