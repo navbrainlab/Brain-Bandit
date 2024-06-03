@@ -1,14 +1,13 @@
 # @Start date : 2022/12/12
 import random
 import sys
-sys.path.append("/home/ubuntu/PycharmProjects/Brain-inspired-Exploration_new(5.4)/Brain-inspired-Exploration")
+sys.path.append("..")
 import numpy as np
-from Model_analysis.BanditGame import Game
+from BanditGame import Game
 from scipy import stats
 import pandas as pd
 from tqdm import tqdm
-import seaborn as sns
-import matplotlib.pyplot as plt
+
 
 class Model:
     def __init__(self, n_choice, tau, mean = 0, mean_std=1, std_list=None, prior_std = None):

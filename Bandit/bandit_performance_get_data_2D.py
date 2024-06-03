@@ -1,9 +1,9 @@
 import sys
-sys.path.append("/home/ubuntu/PycharmProjects/Brain-inspired-Exploration_new(5.4)/Brain-inspired-Exploration")
+sys.path.append("..")
 import numpy as np
 import matplotlib.pyplot as plt
-from Model_analysis.BanditGame import Play
-from Model_analysis.Expected_Value import Kalman_filter,CalculateMeanValue
+from BanditGame import Play
+from Expected_Value import CalculateMeanValue
 import pandas as pd
 
 bandit_mean = 0
@@ -57,10 +57,10 @@ for mode in mode_list:
         bandit_std_list = [std, std-RU]
         print(bandit_std_list)
         prior = [[-1,1],[-1,1]]
-        # p = Play(varargin=varargin[mode], force_times=0, prior=prior,init=True, bandit_mean=bandit_mean, mean_std=mean_std,
-        #          bandit_std_list=bandit_std_list, subject=1, block=10000, trial=20, save=True,
-        #          save_path=f'bandit_performance_raw_data_std={std}_RU={RU}_{mode}.csv', save_mode='w')
-        # p.play()
+        p = Play(varargin=varargin[mode], force_times=0, prior=prior,init=True, bandit_mean=bandit_mean, mean_std=mean_std,
+                 bandit_std_list=bandit_std_list, subject=1, block=10000, trial=20, save=True,
+                 save_path=f'bandit_performance_raw_data_std={std}_RU={RU}_{mode}.csv', save_mode='w')
+        p.play()
         k = CalculateMeanValue(raw_path=f'bandit_performance_raw_data_std={std}_RU={RU}_{mode}.csv', save_path=f'bandit_performance_analysed_data_std={std}_RU={RU}_{mode}.csv',
                           trial=20)
         k.run()

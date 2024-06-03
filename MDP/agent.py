@@ -17,7 +17,9 @@ author: iosband@stanford.edu
 '''
 
 import numpy as np
-from Lyapunov_Worm_deconstruction import Lyapunov_Worm_Deconstruction
+import sys
+sys.path.append('..')
+from model.Lyapunov_Worm_deconstruction import Lyapunov_Worm_Deconstruction
 class Agent(object):
 
     def __init__(self):

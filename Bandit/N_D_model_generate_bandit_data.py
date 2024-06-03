@@ -2,9 +2,9 @@
 import numpy as np
 import pandas as pd
 import sys
-sys.path.append("/home/ubuntu/PycharmProjects/Brain-inspired-Exploration_new(5.4)/Brain-inspired-Exploration")
-from Lyapunov_Worm_multi_D import Lyapunov_Worm_multi
-from kalman_filter_multi import Kalman_filter_no_prior
+sys.path.append("..")
+from model.Lyapunov_Worm import Lyapunov_Worm_multi_D
+from Expected_Value import CalculateMeanValue
 from tqdm import tqdm
 
 class Bandit:
@@ -83,7 +83,7 @@ class Play:
 
     def one_game(self, dim: int, game: Game, block_index: int):
 
-        net = Lyapunov_Worm_multi(varargin=self.varargin, dim=self.dim)
+        net = Lyapunov_Worm_multi_D(varargin=self.varargin, dim=self.dim)
         result_list = []
         mu = game.mean_list
         std = game.std
@@ -159,7 +159,7 @@ if __name__ == '__main__':
     print(f'saved/analysed_{dim}D')
     p = Play(varargin=varargin, dim=dim, force_times=5, prior=None, init=True, bandit_mean=0, mean_std=0, bandit_std_list=bandit_std_list, subject=1, block=5000*dim, trial=10*dim, save=True, save_path=f'saved/raw_{dim}D_neutral_dimension', save_mode='w')
     p.play()
-    k = Kalman_filter_no_prior(f'saved/raw_{dim}D_neutral_dimension', f'saved/analysed_{dim}D_neutral_dimension', trial=10*dim, dim=dim)
+    k = CalculateMeanValue(f'saved/raw_{dim}D_neutral_dimension', f'saved/analysed_{dim}D_neutral_dimension', trial=10*dim, dim=dim)
     k.run()
 
 

@@ -3,12 +3,9 @@ import time  # @Start date : 2023/1/5
 import numpy as np
 import sys
 from multiprocessing import  Process
-sys.path.append('/home/ubuntu/PycharmProjects/Brain-inspired-Exploration_new(5.4)/Brain-inspired-Exploration')
-import matplotlib.pyplot as plt
-import seaborn as sns
+sys.path.append('..')
+from model.Lyapunov_Worm import Lyapunov_Worm_multi_D
 from tqdm import  tqdm
-from Model_analysis.Lyapunov_Worm import Lyapunov_Worm_multi_D
-# plt.style.use('seaborn')
 
 def gengrate_simulation_data_n_D(n:int):
     dim = n

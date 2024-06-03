@@ -1,9 +1,9 @@
 import sys
-sys.path.append("/home/ubuntu/PycharmProjects/Brain-inspired-Exploration_new(5.4)/Brain-inspired-Exploration")
+sys.path.append("..")
 import numpy as np
 import matplotlib.pyplot as plt
-from Model_analysis.BanditGame import Play
-from Model_analysis.Expected_Value import Kalman_filter,CalculateMeanValue
+from BanditGame import Play
+from Expected_Value import CalculateMeanValue
 import pandas as pd
 
 bandit_mean = 0
